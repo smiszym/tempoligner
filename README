@@ -1,0 +1,10 @@
+# Automatic song tempo aligner
+
+# Dependencies
+
+* Python 3
+* pydub
+
+# Author
+
+Copyright (C) 2018, Michał Szymański
