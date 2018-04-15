@@ -5,13 +5,25 @@
 #
 
 import argparse
+from xml.etree import ElementTree
 from pydub import AudioSegment
+
+
+def read_labels_from_aup(filename):
+    b = []
+    xml = open(filename)
+    tree = ElementTree.parse(xml)
+    root = tree.getroot()
+    ns = {"ns": "http://audacity.sourceforge.net/xml/"}
+    for label in root.find("ns:labeltrack", ns).findall("ns:label", ns):
+        b.append(float(label.attrib["t"]) * 1000)
+    return b
 
 
 parser = argparse.ArgumentParser(description='Automatic song tempo aligner')
 parser.add_argument('--input', required=True, help='name of the input file')
 parser.add_argument('--output', required=True, help='name of the output file (must be flac)')
-parser.add_argument('--labels', required=True, help='name of the labels file')
+parser.add_argument('--aup', required=True, help='Audacity project file')
 parser.add_argument('--bpm', type=int, default=120,
                     help='desired beats per minute')
 parser.add_argument('--bpf', type=int, default=8,
@@ -31,14 +43,7 @@ def B(i):
 
 song = AudioSegment.from_mp3(args.input)
 
-with open(args.labels) as f:
-    lines = [line.strip() for line in f]
-
-b = []
-for line in lines:
-    s = line.split("\t")
-    time = float(s[0]) * 1000
-    b.append(time)
+b = read_labels_from_aup(args.aup)
 
 d = args.crossfade_len/2
 
