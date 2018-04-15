@@ -2,8 +2,11 @@
 
 # Dependencies
 
-* Python 3
-* pydub
+The code is written in Python 3.
+
+Use
+  pip install -r requirements.txt
+to install the dependencies.
 
 # Author
 
