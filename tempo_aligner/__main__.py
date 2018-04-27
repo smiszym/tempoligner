@@ -5,6 +5,7 @@
 #
 
 import argparse
+import re
 from xml.etree import ElementTree
 from pydub import AudioSegment
 
@@ -15,8 +16,16 @@ def read_labels_from_aup(filename):
     tree = ElementTree.parse(xml)
     root = tree.getroot()
     ns = {"ns": "http://audacity.sourceforge.net/xml/"}
-    for label in root.find("ns:labeltrack", ns).findall("ns:label", ns):
-        b.append(float(label.attrib["t"]) * 1000)
+    labeltrack = root.find("ns:labeltrack", ns)
+    # If the label track has name "offset=130",
+    # there will be 130 ms offset applied to labels
+    m = re.search("=(\d+)", labeltrack.attrib["name"])
+    offset = 0
+    if m:
+        offset = int(m.group(1))
+    print("Offset is %d" % offset)
+    for label in labeltrack.findall("ns:label", ns):
+        b.append(float(label.attrib["t"]) * 1000 - offset)
     return b
 
 
