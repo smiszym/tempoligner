@@ -1,0 +1,2 @@
+#!/bin/bash
+ffmpeg -i output.flac -ar 48000 -map_channel 0.0.0 orig_l.flac -ar 48000 -map_channel 0.0.1 orig_r.flac
