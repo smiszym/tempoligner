@@ -25,7 +25,9 @@ or 4th beat) -- the default hotkey is Ctrl+M
 bpf (beats per fragment; fragment is the area from a label to the next),
 bpm (beats per minute)
 
-    python3 tempoligner --input input.mp3 --output output.flac --aup project.aup --bpf 2 --bpm 100
+```
+python3 tempoligner --input input.mp3 --output output.flac --aup project.aup --bpf 2 --bpm 100
+```
 
 The aligned song is written to `output.flac` in this example and is aligned
 to an ideal 100 bpm metronome (but see Limitations below). It is assumed
@@ -39,7 +41,9 @@ The code is written in Python 3.
 
 Use
 
-  pip install -r requirements.txt
+```
+pip install -r requirements.txt
+```
 
 to install the dependencies.
 
