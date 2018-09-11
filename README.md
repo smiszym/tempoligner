@@ -38,7 +38,9 @@ Note: currently only mp3 input is supported.
 The code is written in Python 3.
 
 Use
+
   pip install -r requirements.txt
+
 to install the dependencies.
 
 # Limitations
